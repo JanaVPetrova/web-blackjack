@@ -1,0 +1,20 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8" /
+    meta content="IE=edge" http-equiv="X-UA-Compatible" /
+    meta content="width=device-width, initial-scale=1" name="viewport" /
+    title BlackJack
+    link href="/css/bootstrap.min.css" rel="stylesheet" /
+    link href="/css/style.css" rel="stylesheet" /
+  body
+    / script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"
+    script src="/js/bootstrap.min.js"
+    .panel.panel-info
+      .panel-heading
+        h1 Jana Petrova's Test BlackJack
+      .panel-body
+        - if session[:flash]
+          .alert.alert-danger
+            == session[:flash]
+        == yield

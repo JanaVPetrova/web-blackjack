@@ -1,0 +1,53 @@
+- if @game.over?
+  a href='/games/new'
+    button.btn.btn-default New game
+
+h4
+  | Your balance is:
+  = @player.balance
+
+h4 Dealer
+- @game.dealer.cards.each do |card|
+  h1
+    span.label.label-default
+      - if card.visible
+          span class= card.suit.downcase
+          = card.value
+      - else
+        | XX
+
+h4 Your hands:
+table.table.table-stripped
+  tr
+    th Result
+    th Bet
+    th Cards
+    th Actions
+  - @game.hands.each_with_index do |hand, idx|
+    tr
+      td = hand.result
+      td = hand.bet
+      td
+        - hand.cards.each do |card|
+          h1
+            span.label.label-default
+              span class= card.suit.downcase
+              = card.value
+      td
+        - unless hand.result
+          form action="/games/hands/#{idx}/hit" method='post'
+            input type="hidden" name="_method" value="put"
+            button.btn.btn-success type="submit" Hit
+
+          form action="/games/hands/#{idx}/double" method='post'
+            input type="hidden" name="_method" value="put"
+            button.btn.btn-success type="submit" Double
+
+          form action="/games/hands/#{idx}/stand" method='post'
+            input type="hidden" name="_method" value="put"
+            button.btn.btn-success type="submit" Stand
+
+          - if hand.splitable?
+            form action="/games/hands/#{idx}/split" method='post'
+              input type="hidden" name="_method" value="put"
+              button.btn.btn-success type="submit" Split

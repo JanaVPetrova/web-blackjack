@@ -1,0 +1,31 @@
+.hearts {
+  background: url(/images/hearts.png) no-repeat;
+  background-size: contain;
+  min-height: 20px;
+  min-width: 20px;
+  display: inline-block;
+}
+
+.clubs {
+  background: url(/images/clubs.png) no-repeat;
+  background-size: contain;
+  min-height: 20px;
+  min-width: 20px;
+  display: inline-block;
+}
+
+.spades {
+  background: url(/images/spades.png) no-repeat;
+  background-size: contain;
+  min-height: 20px;
+  min-width: 20px;
+  display: inline-block;
+}
+
+.diamonds {
+  background: url(/images/diamonds.png) no-repeat;
+  background-size: contain;
+  min-height: 20px;
+  min-width: 20px;
+  display: inline-block;
+}
