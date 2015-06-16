@@ -36,7 +36,7 @@ class Games < Sinatra::Base
 
   post '/games' do
     last_game = session[:data][:game]
-    deck = last_game.deck if last_game
+    deck = last_game.deck if last_game && last_game.deck.length > 4
 
     @game = Blackjack::Game.new(deck: deck)
     @player = session[:data][:player]
@@ -113,14 +113,18 @@ class Games < Sinatra::Base
     @game = session[:data][:game]
     @player = session[:data][:player]
 
-    id = params[:id].to_i
-    @game.hit @game.hands[id]
+    if @game.deck.any?
+      id = params[:id].to_i
+      @game.hit @game.hands[id]
 
-    data = {
-      game: @game
-    }
+      data = {
+        game: @game
+      }
 
-    save_to_session data
+      save_to_session data
+    else
+      session[:flash] = 'No more cards, sorry!'
+    end
 
     slim :'/games/game'
   end

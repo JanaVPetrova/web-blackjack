@@ -35,9 +35,10 @@ table.table.table-stripped
               = card.value
       td
         - unless hand.result
-          form action="/games/hands/#{idx}/hit" method='post'
-            input type="hidden" name="_method" value="put"
-            button.btn.btn-success type="submit" Hit
+          - if @game.deck.any?
+            form action="/games/hands/#{idx}/hit" method='post'
+              input type="hidden" name="_method" value="put"
+              button.btn.btn-success type="submit" Hit
 
           form action="/games/hands/#{idx}/double" method='post'
             input type="hidden" name="_method" value="put"
