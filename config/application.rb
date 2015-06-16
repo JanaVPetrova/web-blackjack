@@ -11,14 +11,8 @@ Dir.glob(File.expand_path('app/**/*.rb')).each { |file| require file }
 
 class WebBlackjack < Sinatra::Base
   configure do
-    enable :logging
     enable :sessions
     enable :method_override
-
-    log_path = File.expand_path "../../log/#{settings.environment}.log", __FILE__
-    file = File.new(log_path, 'a+')
-    file.sync = true
-    use Rack::CommonLogger, file
 
     register Blackjack
   end
