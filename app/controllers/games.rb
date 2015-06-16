@@ -37,14 +37,15 @@ class Games < Sinatra::Base
   post '/games' do
     last_game = session[:data][:game]
     deck = last_game.deck if last_game && last_game.deck.length > 4
+    bet = params[:bet].to_i
 
-    @game = Blackjack::Game.new(deck: deck)
     @player = session[:data][:player]
 
-    if params[:bet].to_i <= @player.balance
-      @player.balance -= params[:bet].to_i
+    if bet <= @player.balance && bet > 0
+      @game = Blackjack::Game.new(deck: deck)
+      @player.balance -= bet
 
-      hand = Blackjack::Hand.new(@game.select_card(2), params[:bet].to_i)
+      hand = Blackjack::Hand.new(@game.select_card(2), bet)
       @game.hands << hand
 
       data = {
