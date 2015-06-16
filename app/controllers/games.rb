@@ -117,6 +117,13 @@ class Games < Sinatra::Base
       id = params[:id].to_i
       @game.hit @game.hands[id]
 
+      if @game.over? && @game.has_pending_hands?
+        @game.boost
+        @game.check
+        @game.dealer.show
+        @player.balance += count_prize(@game.hands)
+      end
+
       data = {
         game: @game
       }

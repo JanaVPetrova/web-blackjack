@@ -23,9 +23,11 @@ table.table.table-stripped
     th Bet
     th Cards
     th Actions
+    th Status
   - @game.hands.each_with_index do |hand, idx|
     tr
-      td = hand.result
+      td
+        h3 = hand.result
       td = hand.bet
       td
         - hand.cards.each do |card|
@@ -52,3 +54,4 @@ table.table.table-stripped
             form action="/games/hands/#{idx}/split" method='post'
               input type="hidden" name="_method" value="put"
               button.btn.btn-success type="submit" Split
+      td = hand.status

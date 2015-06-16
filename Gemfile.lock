@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/JanaVPetrova/blackjack.git
-  revision: da10d616fd09e0fc3a28467586d1df4a2ee58a1d
+  revision: 263824c3bdf201f13d7f18e7aae2582d42b32dec
   specs:
     blackjack (0.0.1)
 
