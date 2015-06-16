@@ -44,8 +44,7 @@ class Games < Sinatra::Base
     if params[:bet].to_i <= @player.balance
       @player.balance -= params[:bet].to_i
 
-      # hand = Blackjack::Hand.new(@game.select_card(2), params[:bet].to_i)
-      hand = Blackjack::Hand.new([Blackjack::Card.new('hearts', '6'), Blackjack::Card.new('spades', '6')], params[:bet].to_i)
+      hand = Blackjack::Hand.new(@game.select_card(2), params[:bet].to_i)
       @game.hands << hand
 
       data = {
