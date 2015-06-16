@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/JanaVPetrova/blackjack.git
-  revision: 13b879d3644c750c00e2ff9090dfbf10d16482fc
+  revision: da10d616fd09e0fc3a28467586d1df4a2ee58a1d
   specs:
     blackjack (0.0.1)
 
@@ -12,9 +12,9 @@ GEM
       columnize (= 0.9.0)
     coderay (1.1.0)
     columnize (0.9.0)
-    kgio (2.9.2)
+    kgio (2.9.3)
     method_source (0.8.2)
-    multi_json (1.11.0)
+    multi_json (1.11.1)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -44,9 +44,9 @@ GEM
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
-    temple (0.7.5)
+    temple (0.7.6)
     tilt (2.0.1)
-    unicorn (4.8.3)
+    unicorn (4.9.0)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
