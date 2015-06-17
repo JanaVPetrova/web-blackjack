@@ -10,6 +10,16 @@ class Games < Sinatra::Base
     def count_prize(hands)
       hands.inject(0) { |sum, hand| sum += (hand.result == 'win' ? 1.5 * hand.bet : 0)  }
     end
+
+    def current_player
+      session[:data] ||= {}
+      session[:data][:player] || Blackjack::Player.new(1000)
+    end
+
+    def current_game
+      session[:data] ||= {}
+      session[:data][:game]
+    end
   end
 
   before do
@@ -29,7 +39,7 @@ class Games < Sinatra::Base
   end
 
   get '/games/new' do
-    @player = session[:data][:player]
+    @player = current_player
 
     slim :'games/new'
   end
@@ -39,7 +49,7 @@ class Games < Sinatra::Base
     deck = last_game.deck if last_game && last_game.deck.length > 4
     bet = params[:bet].to_i
 
-    @player = session[:data][:player]
+    @player = current_player
 
     if bet <= @player.balance && bet > 0
       @game = Blackjack::Game.new(deck: deck)
@@ -64,8 +74,10 @@ class Games < Sinatra::Base
   end
 
   put '/games/hands/:id/split' do
-    @game = session[:data][:game]
-    @player = session[:data][:player]
+    @game = current_game
+    @player = current_player
+
+    halt(404, 'Game not found') unless @game
 
     id = params[:id].to_i
 
@@ -89,8 +101,10 @@ class Games < Sinatra::Base
   end
 
   put '/games/hands/:id/double' do
-    @game = session[:data][:game]
-    @player = session[:data][:player]
+    @game = current_game
+    @player = current_player
+
+    halt(404, 'Game not found') unless @game
 
     id = params[:id].to_i
 
@@ -111,8 +125,10 @@ class Games < Sinatra::Base
   end
 
   put '/games/hands/:id/hit' do
-    @game = session[:data][:game]
-    @player = session[:data][:player]
+    @game = current_game
+    @player = current_player
+
+    halt(404, 'Game not found') unless @game
 
     if @game.deck.any?
       id = params[:id].to_i
@@ -138,8 +154,10 @@ class Games < Sinatra::Base
   end
 
   put '/games/hands/:id/stand' do
-    @game = session[:data][:game]
-    @player = session[:data][:player]
+    @game = current_game
+    @player = current_player
+
+    halt(404, 'Game not found') unless @game
 
     id = params[:id].to_i
     @game.hands[id].stand
